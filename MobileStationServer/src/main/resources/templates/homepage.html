@@ -1,0 +1,321 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+    <title>homepage</title>
+    <link rel="stylesheet" href="./homepage.css">
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+</head>
+
+<body>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var radiationTable = /*[[${radiationTable}]]*/ 'default';
+
+
+        google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Radiation');
+        data.addColumn('number', 'Radiation level');
+
+        for (let i = 0; i < radiationTable.length; i++) {
+            var a = String.fromCharCode(i);
+            data.addRows([
+                [a,radiationTable[i]]
+            ]);
+        }
+
+        const options = {
+            title: 'Radiation',
+            hAxis: {title: 'Results', titleTextStyle: {color: '#333'}},
+            backgroundColor: '#EDE6F2',
+            legend: 'none',
+            vAxis: {minValue: 0}
+        };
+
+        const chart = new google.visualization.AreaChart(document.getElementById('radiation'));
+        chart.draw(data, options);
+    }
+    /*]]>*/
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var waterLevelTable = /*[[${waterLevelTable}]]*/ 'default';
+
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Water');
+        data.addColumn('number', 'Water level');
+
+        for (let i = 0; i < waterLevelTable.length; i++) {
+            var a = String.fromCharCode(i);
+            data.addRows([
+                [a,waterLevelTable[i]]
+            ]);
+        }
+
+        const options = {
+            title: 'Water level',
+            hAxis: {title: 'Results', titleTextStyle: {color: '#333'}},
+            backgroundColor: '#EDE6F2',
+            legend: 'none',
+            vAxis: {minValue: 0}
+        };
+
+        const chart = new google.visualization.AreaChart(document.getElementById('waterlevel'));
+        chart.draw(data, options);
+    }
+    /*]]>*/
+</script>
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    var oilTable = /*[[${oilTable}]]*/ 'default';
+
+
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Oil');
+        data.addColumn('number', 'Oil level');
+
+        for (let i = 0; i < oilTable.length; i++) {
+            var a = String.fromCharCode(i);
+            data.addRows([
+                [a,oilTable[i]]
+            ]);
+        }
+
+        const options = {
+            title: 'Oil level',
+            hAxis: {title: 'Results', titleTextStyle: {color: '#333'}},
+            backgroundColor: '#EDE6F2',
+            legend: 'none',
+            vAxis: {minValue: 0}
+        };
+
+        const chart = new google.visualization.AreaChart(document.getElementById('oil'));
+        options['vAxis']['format'] = this.value;
+        chart.draw(data, options);
+    }
+    /*]]>*/
+</script>
+
+<div class="line-container">
+    <div> <div style="width: 100px; height: 100px; float:left; display:inline-block"></div></div>
+</div>
+
+<span class="title">MOBILE HOME STATION</span>
+
+<div class="line-container">
+    <div> <div style="width: 100px; height: 50px; float:left; display:inline-block"></div></div>
+</div>
+
+<div class="row">
+    <div class="collum">
+
+        <div id="radiation" class="graph" style="width: 100%;"></div>
+    </div>
+
+    <div class="collum">
+
+        <div id="waterlevel" class="graph" style="width: 100%;"></div>
+    </div>
+
+    <div class="collum">
+
+        <div id="oil" class="graph" style="width: 100%;"></div>
+    </div>
+</div>
+
+<div class="line-container">
+    <div> <div style="width: 100px; height: 100px; float:left; display:inline-block"></div></div>
+</div>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+
+     var objectTable = /*[[${objectTable}]]*/ 'default';
+
+
+    // var objectTable = ["Audi", "Volvo", "Audi"];
+
+    var listOfObjects = [];
+    var scanned = [];
+
+    google.charts.load('current', {packages:['corechart']});
+    google.charts.setOnLoadCallback(drawStuff);
+
+    function getOccurrence(array, Name) {
+        var count = 0;
+        array.forEach((v) => (v === Name && count++));
+        return count;
+    }
+
+    function drawStuff() {
+        var data = new google.visualization.DataTable();
+        data.addColumn('string', 'Country');
+        data.addColumn('number', 'Number of times found');
+
+        for (let i = 0; i < objectTable.length; i++) {
+
+            if (!scanned.includes(objectTable[i])){
+                var obj = {name:objectTable[i],numb:getOccurrence(objectTable,objectTable[i])}
+                scanned.push(objectTable[i])
+                listOfObjects.push(obj)
+            }
+
+        }
+
+
+        for (let i = 0; i < listOfObjects.length; i++) {
+            data.addRows([
+                [listOfObjects[i].name,listOfObjects[i].numb]
+            ]);
+        }
+
+        var options = {
+            title: 'Found Objects',
+            legend: 'none',
+            backgroundColor: '#EDE6F2',
+            vAxis: {minValue: 0}
+        };
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('objectTable'));
+        chart.draw(data, options);
+
+        document.getElementById('format-select').onchange = function() {
+            options['vAxis']['format'] = this.value;
+            chart.draw(data, options);
+        };
+    };
+
+    /*]]>*/
+</script>
+
+<div class="row1">
+    <div class="collum1">
+        <div id="objectTable" class="graph" style="width: 100%;"></div>
+    </div>
+
+</div>
+
+
+<div id="spacer" style="width: 100px; height: 100px; float:left; display:inline-block"></div>
+
+<div>
+    <svg class="menuline" viewBox="0 0 353.072 3">
+        <path id="menuline" d="M 0 0 L 353.07177734375 0">
+        </path>
+    </svg>
+</div>
+
+<div class="line-container">
+    <div> <div style="width: 100px; height: 200px; float:left; display:inline-block"></div></div>
+</div>
+
+<span class="title">lets search it</span>
+
+<div class="row1">
+    <form action="/search" method="GET">
+        <input type="text" id="name" placeholder="Enter here a ID, Day ID or Drone ID"    name="name" required>
+        <button type="submit">let's find it!</button>
+    </form>
+    <form action="/" method="GET">
+        <button type="submit">clear</button>
+    </form>
+</div>
+
+<span class="title">Overview of all data</span>
+
+<div class="row1">
+
+
+    <ul class="responsive-table">
+        <li class="table-header">
+            <div class="col col-1"><img src="icon1.svg"class="icon">   <div>ID</div></div>
+            <div class="col col-2"> <img src="icon1.svg"class="icon">  <div>Drone ID</div></div>
+            <div class="col col-3"> <img src="icon8.svg"class="icon">  <div>Material</div></div>
+            <div class="col col-3"> <img src="icon2.svg"class="icon">  <div>Day ID</div></div>
+            <div class="col col-3"> <img src="icon6.svg"class="icon">  <div>Water level</div></div>
+            <div class="col col-3"> <img src="icon5.svg"class="icon">  <div>Color</div></div>
+            <div class="col col-3"> <img src="icon4.svg"class="icon">  <div>Coordinates</div></div>
+            <div class="col col-3"> <img src="icon3.svg"class="icon">  <div>Date</div></div>
+            <div class="col col-3"> <img src="icon9.svg"class="icon">  <div>oil level</div></div>
+            <div class="col col-3"> <img src="icon7.svg"class="icon">  <div>Radiation level</div></div>
+            <div class="col col-3"> <img src="icon10.svg"class="icon"> <div>Temperature</div></div>
+        </li>
+
+
+        <tr th:each="info: ${measurements}">
+            <li class="table-row">
+                <div class="col col-1" data-label="ID">
+                    <td th:text="${info.getId()}"></td>
+                </div>
+
+                <div class="col col-1" data-label="Drone ID">
+                    <td th:text="${info.getDroneId()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Material">
+                    <td th:text="${info.getMaterial()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Day ID">
+                    <td th:text="${info.getDayId()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Water level">
+
+                    <td th:text="${info.getLevel()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Color">
+                    <td th:text="${info.getColor()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Coordinates">
+
+                    <td th:text="${info.getCoordinates().getLat() + '°,' + info.getCoordinates().getLon() +'°'} "></td>
+                </div>
+
+                <div class="col col-3" data-label="Date">
+                    <td th:text="${info.getDate()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Oil level">
+                    <td th:text="${info.getOilDetection()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Radiation">
+                    <td th:text="${info.getRadiation()}"></td>
+                </div>
+
+                <div class="col col-3" data-label="Temperature">
+
+                    <td th:text="${info.getSurfaceTemperature()}"></td>
+                </div>
+
+            </li>
+        </tr>
+
+
+
+    </ul>
+</div>
+
+
+
+</body>
+
+</html>

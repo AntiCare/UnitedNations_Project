@@ -1,0 +1,21 @@
+{
+  "name": "water-measurements",
+  "version": "1.0.0",
+  "description": "Rest API for water measurements taken by drone program, team A",
+  "main": "index.js",
+  "scripts": {
+    "prestart": "npm install",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "swagger"
+  ],
+  "license": "Unlicense",
+  "private": true,
+  "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "mongoose": "^5.12.0",
+    "swagger-tools": "0.10.1"
+  }
+}

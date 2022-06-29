@@ -1,0 +1,319 @@
+---
+swagger: "2.0"
+info:
+  description: "Rest API for water measurements taken by drone program, team A"
+  version: "1.0.0"
+  title: "Water Measurements"
+host: "localhost:8080"
+#basePath: "/v2"
+tags:
+- name: "measurement"
+  description: "Everything about our measurements"
+schemes:
+- "http"
+paths:
+  /measurement:
+    get:
+      tags:
+      - "measurement"
+      summary: "get all measurements"
+      description: ""
+      operationId: "getmeasurements"
+      produces:
+      - "application/json"
+      parameters: []
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: "#/definitions/Measurement"
+        "405":
+          description: "Invalid input"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByDay:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by day"
+      description: "get all measurements from a specific day"
+      operationId: "findMeasurementsByDay"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "day_id"
+        in: "query"
+        description: "day id that need to be considered for filter"
+        required: true
+        type: "integer"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid day id"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByDate:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by date"
+      description: "get all measurements from a specific date"
+      operationId: "findMeasurementsByDate"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "date"
+        in: "query"
+        description: "date that needs to be considered for filter"
+        required: true
+        type: "string"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid day id"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByWater:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by body of water"
+      description: "get all measurements from a specific body of water"
+      operationId: "findMeasurementsByWater"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "water_id"
+        in: "query"
+        description: "body of water that needs to be considered for filter"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid water id"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByLevel:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by level"
+      description: "get all measurements from a specific level"
+      operationId: "findMeasurementsByLevel"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "level"
+        in: "query"
+        description: "level that needs to be considered for filter"
+        required: true
+        type: "integer"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid level"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByRadiation:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by radiation"
+      description: "get all measurements from a specific radiation level"
+      operationId: "findMeasurementsByradiation"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "radiation"
+        in: "query"
+        description: "Radiation that needs to be considered for filter"
+        required: true
+        type: "integer"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid radiation level"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByMaterial:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by material found"
+      description: "get all measurements from a specific material"
+      operationId: "findMeasurementsByMaterial"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "material"
+        in: "query"
+        description: "material that needs to be considered for filter"
+        required: true
+        type: "string"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid material specified"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByOil:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by oil level"
+      description: "get all measurements from a specific oil level"
+      operationId: "findMeasurementsByOil"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "oil_detection"
+        in: "query"
+        description: "Oil level that needs to be considered for filter"
+        required: true
+        type: "integer"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid oil level"
+      x-swagger-router-controller: "Measurement"
+  /measurement/findByTemperature:
+    get:
+      tags:
+      - "measurement"
+      summary: "Finds measurements by surface temperatur"
+      description: "get all measurements from a specific surface temperature"
+      operationId: "findMeasurementsByTemperature"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "surface_temperature"
+        in: "query"
+        description: "Surface temperaturethat needs to be considered for filter"
+        required: true
+        type: "integer"
+        collectionFormat: "multi"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Measurement"
+        "400":
+          description: "Invalid temperature"
+      x-swagger-router-controller: "Measurement"
+definitions:
+  Measurement:
+    type: "object"
+    properties:
+      day_id:
+        type: "integer"
+        format: "int64"
+      date:
+        type: "object"
+        properties:
+          day:
+            type: "integer"
+            format: "int64"
+          month:
+            type: "integer"
+            format: "int64"
+          year:
+            type: "integer"
+            format: "int64"
+      coordinates:
+        type: "object"
+        properties:
+          latitude:
+            type: "number"
+          longitude:
+            type: "number"
+      water_id:
+        type: "string"
+        description: "name of body of water"
+      level:
+        type: "integer"
+        format: "int64"
+      color:
+        type: "string"
+        description: "color of water"
+      radiation:
+        type: "integer"
+        format: "int64"
+      material:
+        type: "string"
+        description: "material found in water"
+      oil_detection:
+        type: "integer"
+        format: "int64"
+      surface_temperature:
+        type: "integer"
+        format: "int64"
+      objects_detected:
+        type: "array"
+        items:
+          type: "string"
+    xml:
+      name: "Measurement"
+    example:
+      date: "{}"
+      color: "color"
+      material: "material"
+      level: 6
+      radiation: 1
+      coordinates: "{}"
+      oil_detection: 5
+      objects_detected:
+      - "objects_detected"
+      - "objects_detected"
+      water_id: "water_id"
+      day_id: 0
+      surface_temperature: 5
+  ApiResponse:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      type:
+        type: "string"
+      message:
+        type: "string"
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
